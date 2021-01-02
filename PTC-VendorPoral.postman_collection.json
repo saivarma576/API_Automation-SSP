@@ -1,0 +1,502 @@
+{
+	"info": {
+		"_postman_id": "7f30f77f-fa61-4be4-8d60-92ff58171ba3",
+		"name": "PTC-Vendor Poral",
+		"description": "PA Turnpike Vendor Portal\r\n\r\nCMD \r\n\r\n\r\nFor reports\r\nnewman run \"C:\\Users\\Sai\\Desktop\\PTC-VendorPortal(DEC 12).json\" -r htmlextra",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"storing Token to Globalvar\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    console.log(\"token value   \"+jsonData.accessToken)\r",
+							"     pm.globals.set(\"MYToken\",jsonData.accessToken);\r",
+							"});\r",
+							" \r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"ROLE_COMPANY_USER\")\r",
+							"});\r",
+							"\r",
+							" //postman.setNextRequest(\"Get Token Copy\");\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\" : \"{{Email}}\",\n    \"password\" : \"{{Password}}\"\n}"
+				},
+				"url": {
+					"raw": "{{URL}}/{{EndPoint}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"{{EndPoint}}"
+					],
+					"query": [
+						{
+							"key": "Token",
+							"value": "{{MYToken}}",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Authontication "
+			},
+			"response": []
+		},
+		{
+			"name": "DASHBOAD Workitems count",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "password",
+							"value": "{{{{MYToken}}}}",
+							"type": "string"
+						},
+						{
+							"key": "token",
+							"value": "{{MYToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accessToken",
+						"value": "{{MYToken}}",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/microservices/dashboard/company/summary",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"microservices",
+						"dashboard",
+						"company",
+						"summary"
+					],
+					"query": [
+						{
+							"key": "accessToken",
+							"value": "{{MYToken}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VRR - List API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "password",
+							"value": "{{{{MYToken}}}}",
+							"type": "string"
+						},
+						{
+							"key": "token",
+							"value": "{{MYToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/microservices/inbox/vendorRegistrationRequest?isPassive=false&order=-createdDate&limit=10&page=1&passiveUser=undefined",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"microservices",
+						"inbox",
+						"vendorRegistrationRequest"
+					],
+					"query": [
+						{
+							"key": "isPassive",
+							"value": "false"
+						},
+						{
+							"key": "order",
+							"value": "-createdDate"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "passiveUser",
+							"value": "undefined"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VRR workitem Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "password",
+							"value": "{{{{MYToken}}}}",
+							"type": "string"
+						},
+						{
+							"key": "token",
+							"value": "{{MYToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/microservices/inbox/VRR/get/3000721",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"microservices",
+						"inbox",
+						"VRR",
+						"get",
+						"3000721"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "announcements",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "password",
+							"value": "{{{{MYToken}}}}",
+							"type": "string"
+						},
+						{
+							"key": "token",
+							"value": "{{MYToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/microservices/announcements/getall",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"microservices",
+						"announcements",
+						"getall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cost centers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "password",
+							"value": "{{{{MYToken}}}}",
+							"type": "string"
+						},
+						{
+							"key": "token",
+							"value": "{{MYToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/microservices/common/findAllCostCenters/pages?limit=1000&order=centerCode&page=1",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"microservices",
+						"common",
+						"findAllCostCenters",
+						"pages"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "1000"
+						},
+						{
+							"key": "order",
+							"value": "centerCode"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vendor select",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "password",
+							"value": "{{{{MYToken}}}}",
+							"type": "string"
+						},
+						{
+							"key": "token",
+							"value": "{{MYToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/microservices/supplier/vendorById/100",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"microservices",
+						"supplier",
+						"vendorById",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "INVOICE create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							" \r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"success\")\r",
+							"});\r",
+							" \r",
+							" pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"200\")\r",
+							"});\r",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "password",
+							"value": "{{{{MYToken}}}}",
+							"type": "string"
+						},
+						{
+							"key": "token",
+							"value": "{{MYToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"supplierId\":\"100\",\"currency\":\"USD\",\"shiptoaddress\":{\"name\":\"Pennsylvania Turnpike Commission\",\"address1\":\"\",\"address2\":\"700 S. Eisenhower Blvd\",\"address3\":\"\",\"city\":\"Middletown\",\"country\":\"US\",\"zip\":\"17057\",\"location\":\"\",\"state\":\"PA\"},\"confidential\":false,\"invoiceType\":\"NPO_GEN\",\"invoiceTypeDetail\":{\"id\":\"5ecf2988ce3237c7283d0e3b\",\"name\":\"NPO_GEN\",\"desc\":\"Non-PO  General\",\"tags\":[],\"defaultSelected\":true,\"requiredDocTypes\":[\"Invoice\"],\"dynamicHeaderFields\":\"{\\\\\\\"form_fields\\\\\\\":[]}\",\"dynamicLineFields\":\"{\\\\\\\"form_fields\\\\\\\":[]}\",\"headerFields\":[{\"fieldId\":\"invoiceNumber\",\"fieldTitle\":\"Invoice Number\",\"isRequired\":null,\"type\":\"text\",\"isEnabled\":true,\"isConfigurable\":false},{\"fieldId\":\"invoiceDate\",\"fieldTitle\":\"Invoice Date\",\"isRequired\":null,\"type\":\"date\",\"isEnabled\":true,\"isConfigurable\":false},{\"fieldId\":\"vendor\",\"fieldTitle\":\"Vendor\",\"isRequired\":null,\"type\":\"address\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"remitToAddress\",\"fieldTitle\":\"Remit to Address\",\"isRequired\":null,\"type\":\"address\",\"isEnabled\":true,\"isConfigurable\":true},{\"fieldId\":\"shipToAddress\",\"fieldTitle\":\"Ship to Address\",\"isRequired\":null,\"type\":\"address\",\"isEnabled\":true,\"isConfigurable\":true},{\"fieldId\":\"taxAmount\",\"fieldTitle\":\"Tax Amount\",\"isRequired\":null,\"type\":\"number\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"amount\",\"fieldTitle\":\"Amount\",\"isRequired\":null,\"type\":\"number\",\"isEnabled\":true,\"isConfigurable\":false},{\"fieldId\":\"currency\",\"fieldTitle\":\"Currency\",\"isRequired\":null,\"type\":\"text\",\"isEnabled\":true,\"isConfigurable\":true},{\"fieldId\":\"paymentTerms\",\"fieldTitle\":\"Payment Terms\",\"isRequired\":null,\"type\":\"text\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"freightAmount\",\"fieldTitle\":\"Freight Amount\",\"isRequired\":null,\"type\":\"number\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"freightCarrier\",\"fieldTitle\":\"Freight Carrier\",\"isRequired\":null,\"type\":\"text\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"SupplyDate\",\"fieldTitle\":\"Date Of Supply\",\"isRequired\":null,\"type\":\"date\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"DueDate\",\"fieldTitle\":\"Due Date\",\"isRequired\":null,\"type\":\"date\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"requestor\",\"fieldTitle\":\"Requestor\",\"isRequired\":null,\"type\":\"text\",\"isEnabled\":true,\"isConfigurable\":true},{\"fieldId\":\"requestorEmail\",\"fieldTitle\":\"Requestor Email\",\"isRequired\":null,\"type\":\"text\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"billAccNumber\",\"fieldTitle\":\"Bill Account Number\",\"isRequired\":null,\"type\":\"text\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"billAccName\",\"fieldTitle\":\"Bill Account Name\",\"isRequired\":null,\"type\":\"text\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"cadsNumber\",\"fieldTitle\":\"CADS Number\",\"isRequired\":null,\"type\":\"text\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"bankAccountNumber\",\"fieldTitle\":\"Bank Account Number\",\"isRequired\":null,\"type\":\"text\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"abaNo\",\"fieldTitle\":\"ABA Number\",\"isRequired\":null,\"type\":\"text\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"datesOfService\",\"fieldTitle\":\"Dates of Service\",\"isRequired\":null,\"type\":\"Date\",\"isEnabled\":true,\"isConfigurable\":true},{\"fieldId\":\"invoiceTypeCategory\",\"fieldTitle\":\"Category\",\"isRequired\":null,\"type\":\"dropDown\",\"isEnabled\":false,\"isConfigurable\":true}],\"lineFields\":[{\"fieldId\":\"glAccount\",\"fieldTitle\":\"GL account\",\"isRequired\":null,\"type\":\"\",\"isEnabled\":true,\"isConfigurable\":true},{\"fieldId\":\"CostCenter\",\"fieldTitle\":\"Cost Center\",\"isRequired\":null,\"type\":\"\",\"isEnabled\":true,\"isConfigurable\":true},{\"fieldId\":\"WBSelement\",\"fieldTitle\":\"WBSElement\",\"isRequired\":null,\"type\":\"\",\"isEnabled\":true,\"isConfigurable\":true},{\"fieldId\":\"IOorder\",\"fieldTitle\":\"IO order\",\"isRequired\":null,\"type\":\"\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"Amount\",\"fieldTitle\":\"Amount\",\"isRequired\":null,\"type\":\"\",\"isEnabled\":true,\"isConfigurable\":false},{\"fieldId\":\"Tax Amount\",\"fieldTitle\":\"taxAmount\",\"isRequired\":null,\"type\":\"\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"MaterialGroup\",\"fieldTitle\":\"Material Group\",\"isRequired\":null,\"type\":\"\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"itemText\",\"fieldTitle\":\"ItemT ext\",\"isRequired\":null,\"type\":\"\",\"isEnabled\":false,\"isConfigurable\":true},{\"fieldId\":\"datesOfService\",\"fieldTitle\":\"Dates of Service\",\"isRequired\":null,\"type\":\"\",\"isEnabled\":false,\"isConfigurable\":true}],\"standardBusinessRules\":null,\"category\":\"nonPO\",\"workflowEngine\":\"SPAY\",\"addressEditable\":false,\"portalApproval\":false,\"pdfCreate\":true,\"adhoc\":true,\"pdfCreateDocType\":\"Invoice\",\"workflowSteps\":[{\"stepNo\":1,\"editable\":true,\"agentType\":\"requestor\",\"approvers\":null,\"adhoc\":true}],\"supplier\":true,\"remitToAddress\":false,\"expenseReport\":true,\"shipToAddress\":false,\"lineField\":{\"glAccount\":true,\"CostCenter\":true,\"WBSelement\":true,\"IOorder\":false,\"Amount\":true,\"Tax Amount\":false,\"MaterialGroup\":false,\"itemText\":false,\"datesOfService\":false},\"headerField\":{\"invoiceNumber\":true,\"invoiceDate\":true,\"vendor\":false,\"remitToAddress\":true,\"shipToAddress\":true,\"taxAmount\":false,\"amount\":true,\"currency\":true,\"paymentTerms\":false,\"freightAmount\":false,\"freightCarrier\":false,\"SupplyDate\":false,\"DueDate\":false,\"requestor\":true,\"requestorEmail\":false,\"billAccNumber\":false,\"billAccName\":false,\"cadsNumber\":false,\"bankAccountNumber\":false,\"abaNo\":false,\"datesOfService\":true,\"invoiceTypeCategory\":false}},\"supplierName\":\"ePlus Technology Inc\",\"paymentterms\":\"0001\",\"remittoaddress\":{\"id\":\"5fae222cd0fb0ebb62bca738\",\"supplierId\":\"100\",\"defaultRemitToAddress\":true,\"payeeName\":\"ePlus Technology Inc\",\"address1\":\"\",\"address2\":\"96396 Gulgowski Village\",\"address3\":null,\"city\":\"East Vernon\",\"country\":\"US\",\"zip\":\"22141\",\"location\":null,\"state\":\"CA\"},\"invoiceNumber\":\"DEC 26 A1{{$randomInt}}\",\"requestor\":\"amarcell@paturnpike.com\",\"datesOfService\":\"Service H\",\"headerTotalAmount\":\"14.00\",\"notes\":\"check\",\"headerAttributes\":{},\"status\":\"NEW\",\"systemid\":null,\"invoiceCategory\":\"nonPO\",\"additionalDiscount\":\"0.00\",\"netAmount\":14,\"freightAmount\":0,\"total\":14,\"taxPercent\":\"0.00\",\"subTotal\":14,\"totalAmount\":\"14.00\",\"invoiceitems\":[{\"glAccountCode\":\"50100140\",\"glAccountDesc\":\"Wages Local Union 30 Supervisors\",\"costCenter\":\"20280\",\"costCenterDesc\":\"Ramps 4WX\",\"wbsElement\":null,\"wbsElementDesc\":null,\"quantity\":1,\"unitPrice\":\"14.00\",\"ioOrder\":null,\"invalidGLAccount\":false,\"invalidWBS\":false,\"invalidCC\":false,\"datesOfService\":null}],\"attachments\":[{\"Status\":\"success\",\"filetype\":\"pdf\",\"attid\":\"\",\"arid\":\"S1\",\"filename\":\"Invoice (8).pdf\",\"createdate\":\"1609000686500\",\"documentid\":\"FMFX6GEAHHK9QU8ZWAY8YLE82DD6BPOK\",\"documentType\":\"Invoice\"}],\"adhocApprovers\":[{\"step\":1,\"approvers\":[\"amarcell@paturnpike.com\"],\"approverNames\":[\"A marcell\"]},{\"step\":2,\"approvers\":[],\"approverNames\":[]},{\"step\":3,\"approvers\":[],\"approverNames\":[]}]}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/microservices/invoice/create",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"microservices",
+						"invoice",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"console.log(\"fretching token from Perious request \"+ pm.globals.get(\"MYToken\"));",
+					"",
+					" pm.test(\"Response time is less than 200ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+					"});"
+				]
+			}
+		}
+	]
+}

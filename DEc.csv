@@ -1,0 +1,4 @@
+EndPoint,Email,Password
+microservices/auth/signin,rvarghese@paturnpike.com,Test@123$
+microservices/auth/signin,company@smartdocs.ai,Test@123$
+microservices/auth/signin,schintapatla@paturnpike.com,Test@123$

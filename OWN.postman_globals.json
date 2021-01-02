@@ -1,0 +1,34 @@
+{
+	"id": "1b6586c2-08a9-46a3-8a92-8d6cc78707c9",
+	"values": [
+		{
+			"key": "URL",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "MYToken",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "EndPoint",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Email",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "Password",
+			"value": "",
+			"enabled": true
+		}
+	],
+	"name": "OWN Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2021-01-02T07:59:19.735Z",
+	"_postman_exported_using": "Postman/7.36.1"
+}
